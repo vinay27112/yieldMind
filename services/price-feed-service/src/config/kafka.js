@@ -4,12 +4,6 @@ import "dotenv/config";
 const kafka = new Kafka({
   clientId: "price-feed-service",
   brokers: [process.env.KAFKA_BROKERS],
-  ssl: true,
-  sasl: {
-    mechanism: "scram-sha-256",
-    username: process.env.KAFKA_USERNAME,
-    password: process.env.KAFKA_PASSWORD,
-  },
 });
 
 export const producer = kafka.producer();
