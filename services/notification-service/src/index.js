@@ -2,9 +2,17 @@ import express from "express";
 import "dotenv/config";
 import { connectConsumer } from "./config/kafka.js";
 import { startConsumers } from "./consumers/messageHandler.js";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3006;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 

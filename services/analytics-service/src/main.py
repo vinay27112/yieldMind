@@ -5,8 +5,18 @@ from src.config import PORT
 import threading
 from src.consumers.txConsumer import start_tx_consumer
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI(title="YieldMind Analytics Service")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
 
@@ -23,5 +33,3 @@ def startup():
 
 if __name__ == "__main__":
     uvicorn.run("src.main:app", host="0.0.0.0", port=PORT, reload=True)
-
-    
